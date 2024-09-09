@@ -3,13 +3,13 @@
     <div class="row d-flex justify-content-between">
       <div class="leftMap col-md-6">
         <div class="mapbox">
-          <h4 class="text-success fw-bold">플레이스 직접 찾기</h4>
+          <h4 class="textgreen fw-bold">플레이스 직접 찾기</h4>
           <div id="map" class="map-container"></div>
         </div>
       </div>
       <div class="rightMap col-md-6">
         <div class="mapbox">
-          <h4 class="text-success fw-bold">위시플레이스 보기</h4>
+          <h4 class="textgreen fw-bold">위시플레이스 보기</h4>
           <div id="map2" class="map-container"></div>
         </div>
       </div>
@@ -147,6 +147,7 @@ const updateMarkers = () => {
 
 .mapbox h4 {
   margin-bottom: 15px;
+  color: black;
 }
 
 .map-container {
