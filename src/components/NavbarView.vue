@@ -1,7 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-md bg-body-tertiary">
+  <nav class="navbar navbar-expand-md bg-green">
     <div class="container">
-      <router-link class="nav-link" to="/">LOGO</router-link>
+      <router-link class="nav-link" to="/">
+        <img src="../assets/logo.jpg" alt="" />
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -29,4 +31,11 @@
 
 <script setup></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.navbar .container img {
+  width: 50px;
+}
+.bg-green {
+  background: #0edf77;
+}
+</style>

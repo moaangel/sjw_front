@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-y-auto" style="height: 300px">
     <div
       v-for="(item, i) in $store.state.userData"
       :key="i"
@@ -14,25 +14,35 @@
           <p class="mb-0">{{ item.addr }}</p>
         </div>
         <div class="btnWrap d-flex gap-1">
-          <button class="btn btn-outline-secondary" @click="openEditModal(i, item)">수정</button>
-          <button class="btn btn-outline-secondary" @click="$store.commit('deleteUser', item.franname)">삭제</button>
+          <button
+            class="btn btn-outline-secondary"
+            @click="openEditModal(i, item)"
+          >
+            수정
+          </button>
+          <button
+            class="btn btn-outline-secondary"
+            @click="$store.commit('deleteUser', item.franname)"
+          >
+            삭제
+          </button>
         </div>
       </div>
     </div>
-
-    <ModalEdit
-    v-if="isModalOpen"
-      :index="selectedIndex"
-      :item="selectedItem"
-      @close="isModalOpen = false"
-      @save="saveChanges"
-    />
   </div>
+
+  <ModalEdit
+    v-if="isModalOpen"
+    :index="selectedIndex"
+    :item="selectedItem"
+    @close="isModalOpen = false"
+    @save="saveChanges"
+  />
 </template>
 <script setup>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
-import ModalEdit from '../../views/ModalEdit.vue'; 
+import { ref } from "vue";
+import { useStore } from "vuex";
+import ModalEdit from "../../views/ModalEdit.vue";
 
 const store = useStore();
 const isModalOpen = ref(false);
@@ -40,18 +50,21 @@ const selectedItem = ref(null);
 const selectedIndex = ref(null);
 
 const openEditModal = (index, item) => {
-  selectedItem.value = { ...item }; 
+  selectedItem.value = { ...item };
   selectedIndex.value = index;
-  isModalOpen.value = true; 
+  isModalOpen.value = true;
 };
 
 const saveChanges = (updatedItem) => {
-  store.commit('updateUser', { index: selectedIndex.value, updatedItem }); 
-  isModalOpen.value = false; 
+  store.commit("updateUser", { index: selectedIndex.value, updatedItem });
+  isModalOpen.value = false;
 };
 </script>
 
 <style lang="scss" scoped>
+.asd {
+  overflow-y: auto;
+}
 .avata {
   width: 50px;
   height: 50px;

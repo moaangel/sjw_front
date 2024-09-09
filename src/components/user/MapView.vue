@@ -1,23 +1,26 @@
 <template>
-  <div class="MapWrap">
-    <div class="row d-flex justify-content-between ">
+  <div class="MapWrap container">
+    <div class="row d-flex justify-content-between">
       <div class="leftMap col-md-6">
-        <h4>플레이스 직접 찾기</h4>
-        <div id="map" style="width: 500px; height: 400px"></div>
+        <div class="mapbox">
+          <h4 class="text-success fw-bold">플레이스 직접 찾기</h4>
+          <div id="map" class="map-container"></div>
+        </div>
       </div>
       <div class="rightMap col-md-6">
-        <h4>위시플레이스 보기</h4>
-        <div id="map2" style="width: 500px; height: 400px"></div>
+        <div class="mapbox">
+          <h4 class="text-success fw-bold">위시플레이스 보기</h4>
+          <div id="map2" class="map-container"></div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
-import { computed } from 'vue';
-
+import { computed } from "vue";
 
 const store = useStore();
 
@@ -45,8 +48,8 @@ onMounted(() => {
       } else {
         const script = document.createElement("script");
         script.onload = () => kakao.maps.load(initMap);
-        script.src = 
-        '//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f096f81f326844f383a7b6dfaa731eb3&libraries=services';
+        script.src =
+          "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f096f81f326844f383a7b6dfaa731eb3&libraries=services";
         document.head.appendChild(script);
       }
     },
@@ -57,7 +60,11 @@ onMounted(() => {
 
   // Vuex 상태 변화에 따른 마커 업데이트
   store.subscribe((mutation, state) => {
-    if (mutation.type === "addUser" || mutation.type === "deleteUser" || mutation.type === "updateUser") {
+    if (
+      mutation.type === "addUser" ||
+      mutation.type === "deleteUser" ||
+      mutation.type === "updateUser"
+    ) {
       updateMarkers(); // 마커를 업데이트하는 함수 호출
     }
   });
@@ -79,15 +86,15 @@ const initMap = () => {
     position: markerPosition,
   });
 
-  marker.setDraggable(true); 
+  marker.setDraggable(true);
 
   marker.setMap(map);
 
   kakao.maps.event.addListener(marker, "dragend", function () {
-    store.dispatch('mapMoveAct', {
-    lat: marker.getPosition().getLat(),
-    lng: marker.getPosition().getLng(),
-  });
+    store.dispatch("mapMoveAct", {
+      lat: marker.getPosition().getLat(),
+      lng: marker.getPosition().getLng(),
+    });
   });
 
   updateMarkers(); // 지도가 초기화되면 마커를 추가합니다
@@ -103,12 +110,13 @@ const updateMarkers = () => {
   markers.value.forEach((marker) => marker.setMap(null));
   markers.value = []; // 배열 비우기
 
-  const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+  const imageSrc =
+    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
   const positions = store.getters.positions; // Vuex의 getter를 사용하여 변환된 위치 데이터 가져오기
 
   positions.forEach((position, index) => {
-  console.log(`Position ${index}:`, position.latlng); // 각 위치 데이터가 유효한 kakao.maps.LatLng 객체인지 확인
-});
+    console.log(`Position ${index}:`, position.latlng); // 각 위치 데이터가 유효한 kakao.maps.LatLng 객체인지 확인
+  });
   for (let i = 0; i < positions.length; i++) {
     var imageSize = new kakao.maps.Size(24, 35);
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
@@ -123,12 +131,26 @@ const updateMarkers = () => {
     marker.setMap(map2); // 마커가 지도 위에 표시되도록 설정합니다
     markers.value.push(marker);
   }
-
 };
-
 </script>
 
 <style lang="scss">
+.mapbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10%;
+}
 
+.mapbox h4 {
+  margin-bottom: 15px;
+}
 
+.map-container {
+  width: 80%;
+  height: 400px;
+}
 </style>
