@@ -2,7 +2,7 @@
   <div class="container py-3">
     <div class="row mb-5">
       <div class="col-md-6 h-100">
-        <h3 class="fw-bold">위시플레이스</h3>
+        <h3 class="fw-bold">위시플레이스 </h3>
         <UserListView />
       </div>
       <div class="col-md-6 h-100">
