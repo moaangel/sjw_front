@@ -97,7 +97,7 @@ const initMap = () => {
     });
   });
 
-  updateMarkers(); // 지도가 초기화되면 마커를 추가합니다
+  updateMarkers(); // 지도가 초기화되면 마커를 추가합니다.
 };
 
 const updateMarkers = () => {
